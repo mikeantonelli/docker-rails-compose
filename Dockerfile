@@ -10,7 +10,6 @@ WORKDIR /opt
 ENV RAILS_ENV=production
 
 # Build argument for injecting native packages at build time via docker-compose
-ARG APK_ADD_PACKAGES=
 RUN apk add --update --no-cache \
   build-base \
   libxml2-dev \
