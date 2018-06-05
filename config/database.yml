@@ -1,0 +1,24 @@
+
+# These values are primarily provided via environment variables.
+# See env/ and docker-compose.yml for usage.
+default: &default
+  adapter: <%= ENV.fetch("DATABASE_ADAPTER") { 'mysql2' } %>
+  database: <%= ENV.fetch("DATABASE_NAME") { 'docker-rails-small' } %>
+  encoding: <%= ENV.fetch("DATABASE_ENCODING") { 'utf8mb4' } %>
+  host: <%= ENV.fetch("DATABASE_HOST") { } %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD") { } %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  port: <%= ENV.fetch("DATABASE_PORT") { 3306 } %>
+  timeout: <%= ENV.fetch("DATABASE_TIMEOUT") { 5000 } %>
+  username: <%= ENV.fetch("DATABASE_USERNAME") { 'root' } %>
+
+development:
+  <<: *default
+  database: <%= ENV.fetch("DATABASE_NAME") { 'docker-rails-small-development' } %>
+
+test:
+  <<: *default
+  database: <%= ENV.fetch("DATABASE_NAME") { 'docker-rails-small-test' } %>
+
+production:
+  <<: *default

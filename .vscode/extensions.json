@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "rebornix.ruby",
+    "PeterJausovec.vscode-docker",
+    "formulahendry.docker-explorer",
+    "mikestead.dotenv"
+  ]
+}

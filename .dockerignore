@@ -1,0 +1,35 @@
+# bundler configuration
+.bundle
+
+# git configuration
+.git
+.gitignore
+
+# Mac OS
+.DS_Store
+
+# Visual Studio Code
+.vscode
+
+# files to ignore when running docker build commands (e.g. COPY, ADD)
+.dockerignore
+
+# files only used when building and running docker images (not needed in container runtime)
+docker-compose.yml
+Dockerfile
+
+# files used by docker cloud to override default behavior
+hooks
+
+# environment files used by docker-compose
+env
+.env
+
+# potentially residual files (e.g. cache, server pid, etc)
+tmp
+
+# logs
+log/*.log
+
+# Node modules
+/node_modules
