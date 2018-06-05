@@ -16,3 +16,5 @@ services:
     environment:
       - RAILS_ENV=test
     image: 'mikeantonelli/docker-rails-compose:${VERSION-latest}'
+    # volumes:
+    #   - ./spec:/opt/spec
