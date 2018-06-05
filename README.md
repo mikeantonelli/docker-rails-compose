@@ -37,7 +37,7 @@ CONTAINER ID        IMAGE                                      COMMAND          
 d17a963767a8        mikeantonelli/docker-rails-compose:0.1.0   "bin/rails s -b 0.0.…"   11 seconds ago      Up 14 seconds       0.0.0.0:32777->3000/tcp   docker-rails-compose_app_1
 ```
 
-In the above example, the application will be available at [http://localhost:32777].
+In the above example, the application will be available at `http://localhost:32777`.
 
 ### Run Tests
 
