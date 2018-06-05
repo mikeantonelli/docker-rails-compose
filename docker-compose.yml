@@ -10,3 +10,9 @@ services:
     image: 'mikeantonelli/docker-rails-compose:${VERSION-latest}'
     ports:
       - "3000"
+
+  test:
+    command: sh -c "bundle exec rspec"
+    environment:
+      - RAILS_ENV=test
+    image: 'mikeantonelli/docker-rails-compose:${VERSION-latest}'
