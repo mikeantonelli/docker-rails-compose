@@ -18,3 +18,24 @@ services:
     image: 'mikeantonelli/docker-rails-compose:${VERSION-latest}'
     # volumes:
     #   - ./spec:/opt/spec
+
+  development:
+    environment:
+      - RAILS_ENV=development
+    image: 'mikeantonelli/docker-rails-compose:${VERSION-latest}'
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/opt
+
+  debug:
+    command: sh -c 'rm -rfv ./tmp && bundle exec rdebug-ide --host 0.0.0.0 --port 1234 --dispatcher-port 26162 -- bin/rails s -b 0.0.0.0'
+    environment:
+      - RAILS_ENV=development
+    image: 'mikeantonelli/docker-rails-compose:${VERSION-latest}'
+    ports:
+      - 1234:1234
+      - 3000:3000
+      - 26162:26162
+    volumes:
+      - ./:/opt
