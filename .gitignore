@@ -4,6 +4,9 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+# Ignore macOS specific files
+.DS_Store
+
 # Ignore bundler config.
 /.bundle
 
@@ -18,4 +21,8 @@
 !/tmp/.keep
 
 # Ignore node modules
+/node_modules/public/packs
+/public/packs-test
 /node_modules
+yarn-debug.log*
+.yarn-integrity

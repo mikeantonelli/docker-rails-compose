@@ -1,5 +1,16 @@
 {
   "name": "opt",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "@rails/webpacker": "3.5",
+    "babel-preset-react": "^6.24.1",
+    "imports-loader": "0.8.0",
+    "prop-types": "^15.6.1",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-on-rails": "11.0.7"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "2.11.2"
+  }
 }

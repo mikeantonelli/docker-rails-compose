@@ -17,6 +17,10 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
+# Use Webpack to manage app-like JavaScript modules in Rails
+gem 'webpacker', '~> 3.5'
+# Use React on Rails
+gem 'react_on_rails', '11.0.0'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
@@ -55,3 +59,6 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# React on Rails attempts to utilize mini_racer
+# gem 'mini_racer', platforms: :ruby

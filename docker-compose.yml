@@ -25,8 +25,11 @@ services:
     image: 'mikeantonelli/docker-rails-compose:${VERSION-latest}'
     ports:
       - 3000:3000
-    volumes:
-      - ./:/opt
+    # volumes:
+    #   - ./app:/opt/app
+    #   - ./package.json:/opt/package.json
+    #   - ./yarn.lock:/opt/yarn.lock
+    #   - ./:/opt
 
   debug:
     command: sh -c 'rm -rfv ./tmp && bundle exec rdebug-ide --host 0.0.0.0 --port 1234 --dispatcher-port 26162 -- bin/rails s -b 0.0.0.0'
@@ -37,5 +40,5 @@ services:
       - 1234:1234
       - 3000:3000
       - 26162:26162
-    volumes:
-      - ./:/opt
+    # volumes:
+    #   - ./:/opt
