@@ -9,6 +9,9 @@ WORKDIR /opt
 # Set default RAILS environment
 ENV RAILS_ENV=production
 
+# Expose port 3000
+EXPOSE 3000
+
 # Build argument for injecting native packages at build time via docker-compose
 RUN apk add --update --no-cache \
   build-base \
