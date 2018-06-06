@@ -9,4 +9,4 @@
 # echo $CACHE_TAG
 # echo $IMAGE_NAME
 
-docker-compose build node ruby assets app
+docker-compose push node ruby assets app
