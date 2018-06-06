@@ -1,6 +1,7 @@
 ARG VERSION=latest
-FROM mikeantonelli/docker-rails-compose:assets-$VERSION as node
 FROM mikeantonelli/docker-rails-compose:assets-$VERSION as assets
+
+# This image's actual base image
 FROM mikeantonelli/docker-rails-compose:ruby-$VERSION
 
 # Set default RAILS environment
@@ -20,7 +21,7 @@ COPY --from=assets /opt/public /opt/public
 # are precompiled, but for now we'll pull the nodejs executable across. TODO:
 # remove development and test groups from this image and add another layer (Dockerfile.test
 # or Dockerfile.development)
-COPY --from=node /usr/local/bin/node /usr/local/bin/node
+COPY --from=assets /usr/local/bin/node /usr/local/bin/node
 
 # Start the server by default, listening for all connections
 CMD ["bin/rails", "s", "-b", "0.0.0.0", "-p", "3000"]
