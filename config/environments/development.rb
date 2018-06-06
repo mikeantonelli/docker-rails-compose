@@ -1,6 +1,8 @@
 Rails.application.configure do
-  # Verifies that versions and hashed value of the package contents in the project's package.json
-config.webpacker.check_yarn_integrity = true
+  # We use multi-stage builds, so this needs to be disabled
+  # If you are having issues with assets not yet existing use the webpack service in docker compose
+  # or > docker-compose build node ruby assets app
+  config.webpacker.check_yarn_integrity = false
 
   # Settings specified here will take precedence over those in config/application.rb.
 

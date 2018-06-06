@@ -2,7 +2,10 @@ version: '3'
 
 services:
   app:
-    build: ./
+    build:
+      args:
+        - VERSION=${VERSION-latest}
+      context: ./
     environment:
       - RAILS_LOG_TO_STDOUT=true
       - RAILS_SERVE_STATIC_FILES=true
@@ -11,13 +14,19 @@ services:
     ports:
       - "3000"
 
+  assets:
+    build:
+      args:
+        - VERSION=${VERSION-latest}
+      context: ./
+      dockerfile: ./docker/Dockerfile.assets
+    image: 'mikeantonelli/docker-rails-compose:assets-${VERSION-latest}'
+
   test:
     command: sh -c "bundle exec rspec"
     environment:
       - RAILS_ENV=test
     image: 'mikeantonelli/docker-rails-compose:${VERSION-latest}'
-    # volumes:
-    #   - ./spec:/opt/spec
 
   development:
     environment:
@@ -25,11 +34,9 @@ services:
     image: 'mikeantonelli/docker-rails-compose:${VERSION-latest}'
     ports:
       - 3000:3000
-    # volumes:
-    #   - ./app:/opt/app
-    #   - ./package.json:/opt/package.json
-    #   - ./yarn.lock:/opt/yarn.lock
-    #   - ./:/opt
+    volumes:
+      - ./app:/opt/app
+      - ./public:/opt/public
 
   debug:
     command: sh -c 'rm -rfv ./tmp && bundle exec rdebug-ide --host 0.0.0.0 --port 1234 --dispatcher-port 26162 -- bin/rails s -b 0.0.0.0'
@@ -40,5 +47,27 @@ services:
       - 1234:1234
       - 3000:3000
       - 26162:26162
-    # volumes:
-    #   - ./:/opt
+    volumes:
+      - ./app:/opt/app
+      - ./public:/opt/public
+
+  node:
+    build:
+      context: ./
+      dockerfile: ./docker/Dockerfile.node
+    image: 'mikeantonelli/docker-rails-compose:node-${VERSION-latest}'
+
+  ruby:
+    build:
+      args:
+        - VERSION=${VERSION-latest}
+      context: ./
+      dockerfile: ./docker/Dockerfile.ruby
+    image: 'mikeantonelli/docker-rails-compose:ruby-${VERSION-latest}'
+
+  webpack:
+    command: sh -c 'rm -rf public/packs/* || true && bundle exec rake react_on_rails:locale && bin/webpack -w'
+    image: 'mikeantonelli/docker-rails-compose:assets-${VERSION-latest}'
+    volumes:
+      - ./app:/opt/app
+      - ./public:/opt/public

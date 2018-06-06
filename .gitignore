@@ -23,6 +23,8 @@
 # Ignore node modules
 /node_modules/public/packs
 /public/packs-test
+/public/assets
+/public/packs
 /node_modules
 yarn-debug.log*
 .yarn-integrity

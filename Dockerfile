@@ -1,10 +1,7 @@
-# Build argument to allow specifying the version of the alpine base image to use.
-ARG ALPINE_VERSION=3.7
-FROM alpine:${ALPINE_VERSION}
-
-# Create and set the working directory as /opt
-RUN mkdir /opt
-WORKDIR /opt
+ARG VERSION=latest
+FROM mikeantonelli/docker-rails-compose:assets-$VERSION as node
+FROM mikeantonelli/docker-rails-compose:assets-$VERSION as assets
+FROM mikeantonelli/docker-rails-compose:ruby-$VERSION
 
 # Set default RAILS environment
 ENV RAILS_ENV=production
@@ -12,42 +9,18 @@ ENV RAILS_ENV=production
 # Expose port 3000
 EXPOSE 3000
 
-# Build argument for injecting native packages at build time via docker-compose
-RUN apk add --update --no-cache \
-  build-base \
-  libxml2-dev \
-  libxslt-dev \
-  ruby \
-  ruby-bundler \
-  ruby-dev \
-  libffi-dev \
-  ruby-irb \
-  tzdata \
-  mariadb-dev \
-  nodejs \
-  yarn \
-  && rm -rf /var/cache/apk/*
-
-# Copy the package.json and yarn.lock, and run yarn install prior to copying all source files
-# This is an optimization that will prevent the need to re-run yarn install when only source
-# code is changed and not dependencies.
-COPY package.json /opt
-COPY yarn.lock /opt
-RUN yarn install && yarn cache clean
-
-# Copy the Gemfile and Gemfile.lock, and run bundle install prior to copying all source files
-# This is an optimization that will prevent the need to re-run bundle install when only source
-# code is changed and not dependencies.
-COPY Gemfile /opt
-COPY Gemfile.lock /opt
-RUN bundle install && rm -rfv ~/.bundle/cache
-
 # Copy the application's source into the image.
 # See .dockerignore for the files in the local directory not being copied.
 COPY . /opt
 
-# Precompile our assets
-RUN bundle exec rake assets:precompile
+# Copy Precompiled Assets
+COPY --from=assets /opt/public /opt/public
+
+# Uglifier ruby gem needs a JavaScript runtime, we shouldn't need this since our assets
+# are precompiled, but for now we'll pull the nodejs executable across. TODO:
+# remove development and test groups from this image and add another layer (Dockerfile.test
+# or Dockerfile.development)
+COPY --from=node /usr/local/bin/node /usr/local/bin/node
 
 # Start the server by default, listening for all connections
 CMD ["bin/rails", "s", "-b", "0.0.0.0", "-p", "3000"]

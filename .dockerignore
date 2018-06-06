@@ -15,6 +15,7 @@
 .dockerignore
 
 # files only used when building and running docker images (not needed in container runtime)
+/docker
 docker-compose.yml
 Dockerfile
 

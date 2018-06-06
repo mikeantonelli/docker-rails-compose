@@ -1,0 +1,18 @@
+ARG VERSION=latest
+FROM mikeantonelli/docker-rails-compose:node-$VERSION as node
+
+FROM mikeantonelli/docker-rails-compose:ruby-$VERSION
+
+# Copy node_modules and the node executable so that assets can be precompiled by sprockets and react on rails.
+COPY --from=node /app/node_modules ./node_modules
+COPY --from=node /usr/local/bin/node /usr/local/bin/node
+
+# Skip yarn integrity check, this image won't have yarn because we are running multi-stage builds
+ENV SKIP_YARN_INTEGRITY_CHECK=true
+
+# Copy the application's source into the image.
+# See .dockerignore for the files in the local directory not being copied.
+COPY . /opt
+
+# Precompile our assets
+RUN bundle exec rake assets:precompile
