@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Available Environment Variables
+# https://docs.docker.com/docker-cloud/builds/advanced/#environment-variables-for-building-and-testing
+# echo $SOURCE_BRANCH
+# echo $SOURCE_COMMIT
+# echo $COMMIT_MSG
+# echo $DOCKER_REPO
+# echo $CACHE_TAG
+# echo $IMAGE_NAME
+
+docker-compose run test

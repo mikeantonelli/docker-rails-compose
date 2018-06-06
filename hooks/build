@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Available Environment Variables
+# https://docs.docker.com/docker-cloud/builds/advanced/#environment-variables-for-building-and-testing
+# echo $SOURCE_BRANCH
+# echo $SOURCE_COMMIT
+# echo $COMMIT_MSG
+# echo $DOCKER_REPO
+# echo $CACHE_TAG
+# echo $IMAGE_NAME
+
+# We explicitly build them individually because we don't use 'depends_on'
+docker-compose build node
+docker-compose build ruby
+docker-compose build assets
+docker-compose build app
