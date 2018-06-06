@@ -20,6 +20,24 @@
         "reveal": "never",
         "panel": "shared"
       }
-    }
+    },
+    {
+      "label": "webpack",
+      "type": "shell",
+      "command": "docker-compose up -d webpack",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "stop webpack",
+      "type": "shell",
+      "command": "docker-compose stop webpack",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
   ]
 }

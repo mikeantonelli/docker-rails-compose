@@ -2,7 +2,17 @@
 	"version": "0.2.0",
 	"configurations": [
     {
-      "name": "Debug Ruby",
+      "name": "attach ruby",
+      "type": "Ruby",
+      "request": "attach",
+      "remotePort": "1234",
+      "remoteHost": "127.0.0.1",
+      "remoteWorkspaceRoot": "/opt",
+      "cwd": "${workspaceRoot}",
+      "showDebuggerOutput": true
+    },
+    {
+      "name": "debug ruby",
       "type": "Ruby",
       "request": "attach",
       "remotePort": "1234",
@@ -12,6 +22,28 @@
       "showDebuggerOutput": true,
       "preLaunchTask": "debug",
       "postDebugTask": "stop debug"
+    },
+    {
+      "name": "debug chrome",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceRoot}",
+      "userDataDir": "${workspaceRoot}/.chrome",
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+        // "webpack:///./~/*": "${webRoot}/node_modules/*",
+        "webpack:///./~/*": "${webRoot}/app/javascript/*"
+      },
+      "disableNetworkCache": true,
+      "showAsyncStacks": true,
+      "smartStep": true,
+      "internalConsoleOptions": "openOnSessionStart",
+      "skipFiles": [
+        "node_modules/**"
+      ],
+      "preLaunchTask": "webpack",
+      "postDebugTask": "stop webpack"
     }
 	]
 }

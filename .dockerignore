@@ -11,6 +11,9 @@
 # Visual Studio Code
 .vscode
 
+# Chrome Debugging
+.chrome
+
 # files to ignore when running docker build commands (e.g. COPY, ADD)
 .dockerignore
 

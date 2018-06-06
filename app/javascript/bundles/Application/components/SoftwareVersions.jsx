@@ -23,13 +23,9 @@ export default class SoftwareVersions extends React.Component {
     };
   }
 
-  updateName = (name) => {
-    this.setState({ name });
-  };
-
   render() {
     return (
-      <p class="version">
+      <p className="version">
         <strong>Rails version:</strong> {this.state.railsVersion}<br />
         <strong>Ruby version:</strong> {this.state.rubyVersion} ({this.state.rubyPlatform})
       </p>
