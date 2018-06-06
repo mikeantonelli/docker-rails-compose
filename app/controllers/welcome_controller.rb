@@ -1,7 +1,7 @@
 class WelcomeController < ApplicationController
 
   def index
-    @version_props = { railsVersion: Rails.version, rubyPlatform: RUBY_VERSION, rubyVersion: RUBY_PLATFORM }
+    @version_props = { railsVersion: RUBY_VERSION, rubyPlatform: Rails.version, rubyVersion: RUBY_PLATFORM }
 
     Rails.logger.info "#{self.class.name}: Preparing to render with props: #{@version_props}"
   end
