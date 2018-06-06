@@ -38,6 +38,13 @@ services:
       - ./app:/opt/app
       - ./public:/opt/public
 
+  webpack:
+    command: sh -c 'rm -rf public/packs/* || true && bundle exec rake react_on_rails:locale && bin/webpack -w'
+    image: 'mikeantonelli/docker-rails-compose:assets-${VERSION-latest}'
+    volumes:
+      - ./app:/opt/app
+      - ./public:/opt/public
+
   debug:
     command: sh -c 'rm -rfv ./tmp && bundle exec rdebug-ide --host 0.0.0.0 --port 1234 --dispatcher-port 26162 -- bin/rails s -b 0.0.0.0'
     environment:
@@ -65,9 +72,4 @@ services:
       dockerfile: ./docker/Dockerfile.ruby
     image: 'mikeantonelli/docker-rails-compose:ruby-${VERSION-latest}'
 
-  webpack:
-    command: sh -c 'rm -rf public/packs/* || true && bundle exec rake react_on_rails:locale && bin/webpack -w'
-    image: 'mikeantonelli/docker-rails-compose:assets-${VERSION-latest}'
-    volumes:
-      - ./app:/opt/app
-      - ./public:/opt/public
+
