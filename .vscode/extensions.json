@@ -3,7 +3,6 @@
     "msjsdiag.debugger-for-chrome",
     "rebornix.ruby",
     "PeterJausovec.vscode-docker",
-    "formulahendry.docker-explorer",
     "mikestead.dotenv"
   ]
 }
