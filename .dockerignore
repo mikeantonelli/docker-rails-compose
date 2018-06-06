@@ -33,3 +33,7 @@ log/*.log
 
 # Node modules
 /node_modules
+
+# Precompiled
+/public/assets
+/public/packs

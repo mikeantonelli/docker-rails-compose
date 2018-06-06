@@ -33,7 +33,7 @@ RUN apk add --update --no-cache \
 # code is changed and not dependencies.
 COPY package.json /opt
 COPY yarn.lock /opt
-RUN yarn install
+RUN yarn install && yarn cache clean
 
 # Copy the Gemfile and Gemfile.lock, and run bundle install prior to copying all source files
 # This is an optimization that will prevent the need to re-run bundle install when only source
