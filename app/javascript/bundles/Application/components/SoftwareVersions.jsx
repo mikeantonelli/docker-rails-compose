@@ -13,7 +13,7 @@ export default class SoftwareVersions extends React.Component {
    */
   constructor(props) {
     super(props);
-    debugger
+
     // How to set initial state in ES6 class syntax
     // https://reactjs.org/docs/state-and-lifecycle.html#adding-local-state-to-a-class
     this.state = {
