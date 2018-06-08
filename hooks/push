@@ -9,4 +9,6 @@
 # echo $CACHE_TAG
 # echo $IMAGE_NAME
 
-docker-compose push node ruby assets app
+# Disable for now - see:
+# https://github.com/mikeantonelli/docker-rails-compose/issues/1
+# docker-compose push node ruby assets app

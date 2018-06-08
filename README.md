@@ -6,7 +6,7 @@ This project aims to provide an example of how to utilize Docker to build a Ruby
 
 This documentation is being written with:
 
-* Docker 17.01+
+* Docker 17.05+
 * Docker Compose 1.12.0+
 
 ## Usage
@@ -21,6 +21,12 @@ This documentation is being written with:
 
 ```bash
 ➭ docker-compose build app
+```
+
+There is also a convenience script in [`hooks/`](hooks/) that is used by [Docker Cloud](https://cloud.docker.com), and you can use it too:
+
+```bash
+➭ ./hooks/build
 ```
 
 ### Run the Application
@@ -42,5 +48,22 @@ In the above example, the application will be available at `http://localhost:327
 ### Run Tests
 
 ```bash
-➭ docker-compose run app rspec
+➭ docker-compose run test
 ```
+
+There is also a convenience script in [`hooks/`](hooks/) that is used by [Docker Cloud](https://cloud.docker.com), and you can use it too:
+
+```bash
+➭ ./hooks/test
+```
+
+### Developing
+
+Visual Studio Code configuration is provided in [`.vscode/`](.vscode/).
+
+* Debug Ruby - start debug service in the background.
+* Debug Chrome - start webpack service in the background, open Chrome.
+
+## Contrinuting
+
+Please feel free to log an issue or propose changes to this project. I hope that you find it helpful and would like to keep it relevant.
