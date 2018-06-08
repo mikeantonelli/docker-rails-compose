@@ -64,6 +64,6 @@ Visual Studio Code configuration is provided in [`.vscode/`](.vscode/).
 * Debug Ruby - start debug service in the background.
 * Debug Chrome - start webpack service in the background, open Chrome.
 
-## Contrinuting
+## Contributing
 
 Please feel free to log an issue or propose changes to this project. I hope that you find it helpful and would like to keep it relevant.
