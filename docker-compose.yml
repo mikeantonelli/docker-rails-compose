@@ -4,53 +4,51 @@ services:
   app:
     build:
       args:
-        - VERSION=${VERSION-latest}
+        - VERSION=${VERSION}
       context: ./
-    environment:
-      - RAILS_LOG_TO_STDOUT=true
-      - RAILS_SERVE_STATIC_FILES=true
-      - SECRET_KEY_BASE=changeme
-    image: 'mikeantonelli/docker-rails-compose:${VERSION-latest}'
+    depends_on:
+      - db-client
+    env_file:
+      - ./env/app.env
+      - ./env/database.env
+    image: 'mikeantonelli/docker-rails-compose:${VERSION}'
     ports:
-      - "3000"
+      - '3000'
 
   assets:
     build:
       args:
-        - VERSION=${VERSION-latest}
+        - VERSION=${VERSION}
       context: ./
       dockerfile: ./docker/Dockerfile.assets
-    image: 'mikeantonelli/docker-rails-compose:assets-${VERSION-latest}'
+    image: 'mikeantonelli/docker-rails-compose:assets-${VERSION}'
 
-  test:
-    command: sh -c "bundle exec rspec"
-    environment:
-      - RAILS_ENV=test
-    image: 'mikeantonelli/docker-rails-compose:${VERSION-latest}'
+  db-client:
+    command: sh -c "sh wait-for-mysql.sh bin/rake db:version"
+    depends_on:
+      - 'db'
+    env_file:
+      - ./env/database.env
+    image: 'mikeantonelli/docker-rails-compose:${VERSION}'
+    volumes:
+      - ./docker/scripts/wait-for-mysql.sh:/opt/wait-for-mysql.sh
 
-  development:
-    command: sh -c 'rm -rf ./tmp && bundle exec bin/rails s -b 0.0.0.0'
-    environment:
-      - RAILS_ENV=development
-    image: 'mikeantonelli/docker-rails-compose:${VERSION-latest}'
+  db:
+    image: mysql:5.6
+    env_file:
+      - ./env/database.env
     ports:
-      - 3000:3000
-    volumes:
-      - ./app:/opt/app
-      - ./public:/opt/public
-
-  webpack:
-    command: sh -c 'rm -rf public/packs/* || true && bundle exec rake react_on_rails:locale && bin/webpack -w'
-    image: 'mikeantonelli/docker-rails-compose:assets-${VERSION-latest}'
-    volumes:
-      - ./app:/opt/app
-      - ./public:/opt/public
+      - '3306'
 
   debug:
     command: sh -c 'rm -rf ./tmp && bundle exec rdebug-ide --host 0.0.0.0 --port 1234 --dispatcher-port 26162 -- bin/rails s -b 0.0.0.0'
+    depends_on:
+      - db-client
     environment:
       - RAILS_ENV=development
-    image: 'mikeantonelli/docker-rails-compose:${VERSION-latest}'
+    env_file:
+      - ./env/database.env
+    image: 'mikeantonelli/docker-rails-compose:${VERSION}'
     ports:
       - 1234:1234
       - 3000:3000
@@ -59,18 +57,44 @@ services:
       - ./app:/opt/app
       - ./public:/opt/public
 
+  development:
+    command: sh -c 'rm -rf ./tmp && bundle exec bin/rails s -b 0.0.0.0'
+    depends_on:
+      - db-client
+    environment:
+      - RAILS_ENV=development
+    env_file:
+      - ./env/database.env
+    image: 'mikeantonelli/docker-rails-compose:${VERSION}'
+    ports:
+      - 3000:3000
+    volumes:
+      - ./app:/opt/app
+      - ./public:/opt/public
+
   node:
     build:
       context: ./
       dockerfile: ./docker/Dockerfile.node
-    image: 'mikeantonelli/docker-rails-compose:node-${VERSION-latest}'
+    image: 'mikeantonelli/docker-rails-compose:node-${VERSION}'
 
   ruby:
     build:
       args:
-        - VERSION=${VERSION-latest}
+        - VERSION=${VERSION}
       context: ./
       dockerfile: ./docker/Dockerfile.ruby
-    image: 'mikeantonelli/docker-rails-compose:ruby-${VERSION-latest}'
+    image: 'mikeantonelli/docker-rails-compose:ruby-${VERSION}'
 
+  test:
+    command: sh -c "bundle exec rspec"
+    environment:
+      - RAILS_ENV=test
+    image: 'mikeantonelli/docker-rails-compose:${VERSION}'
 
+  webpack:
+    command: sh -c 'rm -rf public/packs/* || true && bundle exec rake react_on_rails:locale && bin/webpack -w'
+    image: 'mikeantonelli/docker-rails-compose:assets-${VERSION}'
+    volumes:
+      - ./app:/opt/app
+      - ./public:/opt/public
