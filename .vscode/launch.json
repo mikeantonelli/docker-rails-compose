@@ -1,5 +1,14 @@
 {
-	"version": "0.2.0",
+  "version": "0.2.0",
+  "compounds": [
+    {
+      "name": "debug",
+      "configurations": [
+        "debug ruby",
+        "debug chrome"
+      ]
+    }
+  ],
 	"configurations": [
     {
       "name": "attach ruby",
@@ -45,5 +54,5 @@
       "preLaunchTask": "webpack",
       "postDebugTask": "stop webpack"
     }
-	]
+  ]
 }
