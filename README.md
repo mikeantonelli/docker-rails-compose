@@ -106,10 +106,10 @@ Visual Studio Code configuration is provided in [`.vscode/`](.vscode/).
 
 Using this configuration you should quickly be able to:
 
-# Clone this project
-# Open VSCode
-# Install recommended plugins (and restart VSCode)
-# Launch the application by pressing F5, or `Debug` > `Start Debugging`.
+1. Clone this project
+2. Open VSCode
+3. Install recommended plugins (and restart VSCode)
+4. Launch the application by pressing F5, or `Debug` > `Start Debugging`.
 
 ## Troubleshooting
 
