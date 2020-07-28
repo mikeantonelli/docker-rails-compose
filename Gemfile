@@ -37,7 +37,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 # Use json and bigdecimal
-gem 'json', '~> 2.1.0'
+gem 'json', '~> 2.3.0'
 gem 'bigdecimal', '~> 1.3.4'
 
 group :development, :test do
