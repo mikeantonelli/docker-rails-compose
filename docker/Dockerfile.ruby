@@ -19,6 +19,7 @@ RUN apk add --update --no-cache \
   ruby-irb \
   tzdata \
   mariadb-dev \
+  mysql-client \ # TODO: This shouldn't be needed, but is used by db-client
   && rm -rf /var/cache/apk/*
 
 # Copy the Gemfile and Gemfile.lock, and run bundle install prior to copying all source files
